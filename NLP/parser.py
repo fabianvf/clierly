@@ -51,8 +51,8 @@ def parse(text):
         p_list = list()
         for sentence in paragraph:
             sentence = sentence.strip()
-            flags = set()
-            categories = set()
+            flags = list()
+            categories = list()
             exclude = False
             for e in excludes:
                 if e.search(sentence):
@@ -65,7 +65,7 @@ def parse(text):
             for key in keywords.keys():
                 for keyword in keywords[key]:
                     if (keyword.search(sentence)):
-                        flags.add((key, keyword.pattern))
+                        flags.append((key, keyword.pattern))
             message = _generateMessage(flags)
             flags = [f[0] for f in flags]
             sentence = (sentence, flags, message)
@@ -143,5 +143,5 @@ def _generateMessage(flags):
             stats["Money"] +=1
             message = 'This is part of your financial agreement with the service. Make sure you understand how, why, and when you will be charged. '
             messages.add(message)
-    return messages
+    return list(messages)
     

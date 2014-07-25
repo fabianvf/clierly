@@ -14,8 +14,9 @@ def process():
     text = parser.parse(request.form['text'])
     def map_text(p):
         return [{'text':sentence[0],'categories':list(sentence[1]),'message':sentence[2]} for sentence in p]
-    text = map(map_text, text)
-    return json.dumps(text)
+    score = text[0]
+    text = map(map_text, text[1])
+    return json.dumps({'score': score, 'text': text})
 
 
 if __name__ == '__main__':
